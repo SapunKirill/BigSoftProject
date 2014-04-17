@@ -15,6 +15,9 @@ class Companies {
     /** @ORM\Column(name="`name`", type="string", nullable=true) */
     protected $name;
 
+    /** @ORM\Column(name="`legal_name`", type="string", nullable=true) */
+    protected $legal_name;
+
     /** @ORM\Column(name="`worker_count`", type="integer", nullable=true) */
     protected $worker_count;
 
