@@ -19,7 +19,7 @@ class News {
     /** @ORM\Column(name="`short_text`", type="string",nullable=true) */
     protected $short_text;
 
-    /** @ORM\Column(name="`full_text`", type="string",length=50000, nullable=true) */
+    /** @ORM\Column(name="`full_text`", type="text",length=50000, nullable=true) */
     protected $full_text;
 
     /** @ORM\Column(name="`img`", type="string", nullable=true) */
