@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        
+            <form id="filter" action="salary/search" class="navbar-form" method="post">
+
+                <div class="col-md-2">
+                    <select name="technology" select class="selectpicker">
+                        <option>Выберите технологию:</option>
+                        <?php foreach ($technology as $value): ?>
+                            <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <select name="position" select class="selectpicker">
+                        <option>Выберите должность:</option>
+                        <?php foreach ($position as $value): ?>
+                            <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                
+                <div class="col-md-2">
+                    <select name="city" select class="selectpicker">
+                        <option>Выберите город:</option>
+                        <?php foreach ($city as $value): ?>
+                            <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                
+                <div class="col-md-1">
+                    <input type="text" name="experience" size="6" maxlength="2" placeholder="Стаж, лет" />
+                </div>
+                <div class="col-md-1">
+                    <input type="text" name="price" size="6" maxlength="4" placeholder="Сумма, $" />
+                </div>
+
+
+                <input type="reset" class="btn btn-danger" value="Clear Form" />
+                <input type="submit" class="btn btn-success" id="LogIn" value="GO!"> 
+
+            </form>
+
+       
+
+    </div>
+</div>

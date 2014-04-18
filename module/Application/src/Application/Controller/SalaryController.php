@@ -1,23 +1,51 @@
 <?php
+
 namespace Application\Controller;
 
 use Application\Entity\Position;
 use Application\Entity\Vacancy;
 use Application\Entity\Technology;
+use Application\Entity\Needs;
+use Application\Entity\City;
 use Zend;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class SalaryController extends AbstractActionController
-{
-    public function indexAction()
-    {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');        
+class SalaryController extends AbstractActionController {
+
+    /**
+     * @var EntityManager
+     */
+    protected $em;
+
+    public function setEntityManager(EntityManager $em) {
+        $this->em = $em;
+    }
+
+    public function getEntityManager() {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        }
+        return $this->em;
+    }
+
+    public function indexAction() {
+        return new ViewModel(array(
+            'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
+            'position' => $this->getEntityManager()->getRepository('Application\Entity\Position')->findAll(),
+            'city' => $this->getEntityManager()->getRepository('Application\Entity\City')->findAll(),
+        ));
+    }
+
+    public function searchAction() {
         
+        $id = $this->params()->fromRoute('technology');
         
-        $getTechnology = $objectManager->find('Application\Entity\Technology', 1);
+        var_dump($_POST);
         
-        printf($getTechnology->getName());
+        var_dump($id);
+        
         return new ViewModel();
     }
+
 }
