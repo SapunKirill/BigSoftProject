@@ -35,6 +35,20 @@ return array(
                     ),
                 ),
             ),
+            'news' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/news[/:testParams]',
+                    'constraints' => array(
+                        'testParams'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'index'
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(

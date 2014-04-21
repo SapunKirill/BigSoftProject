@@ -31,16 +31,29 @@ class NewsController extends AbstractActionController
 
     public function indexAction()
     {
-        $objectManager = $this
+/*        $objectManager = $this
             ->getServiceLocator()
             ->get('Doctrine\ORM\EntityManager');
         $news = new News();
         $news->setName("blabla");
         $objectManager->persist($news);
-        $objectManager->flush();
+        $objectManager->flush();*/
 
-        $getNews = $objectManager->find('Application\Entity\News', 1);
-        printf($getNews->getName());
+
+        $news = $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('id' => 1));
+       foreach($news as $value){
+           print_r($value->getName());
+      }
+
+        $v = $this->params()->fromPost("fam");
+        print_r($v);
+/*        $values = $this->params()->fromQuery();
+        $name = $values['name'];
+        print_r($name);*/
+
+/*        $test = $this->params('testParams');
+        print_r($test);*/
+
 
         return new ViewModel();
     }

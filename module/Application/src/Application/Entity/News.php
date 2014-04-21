@@ -3,7 +3,9 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
-/** @ORM\Entity */
+/**
+ * @ORM\Entity(repositoryClass="Application\Repository\NewsRepository")
+ */
 class News {
 
     /**
@@ -39,7 +41,7 @@ class News {
 
 
 
-    // getters/setters
+
 
     /**
      * @param mixed $dislike
@@ -58,11 +60,11 @@ class News {
     }
 
     /**
-     * @param mixed $fullText
+     * @param mixed $full_text
      */
-    public function setFullText($fullText)
+    public function setFullText($full_text)
     {
-        $this->fullText = $fullText;
+        $this->full_text = $full_text;
     }
 
     /**
@@ -70,7 +72,7 @@ class News {
      */
     public function getFullText()
     {
-        return $this->fullText;
+        return $this->full_text;
     }
 
     /**
@@ -106,22 +108,6 @@ class News {
     }
 
     /**
-     * @param mixed $like
-     */
-    public function setLike($like)
-    {
-        $this->like = $like;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLike()
-    {
-        return $this->like;
-    }
-
-    /**
      * @param mixed $name
      */
     public function setName($name)
@@ -135,6 +121,22 @@ class News {
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param mixed $like
+     */
+    public function setLike($like)
+    {
+        $this->like = $like;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLike()
+    {
+        return $this->like;
     }
 
     /**
@@ -154,11 +156,11 @@ class News {
     }
 
     /**
-     * @param mixed $shortText
+     * @param mixed $short_text
      */
-    public function setShortText($shortText)
+    public function setShortText($short_text)
     {
-        $this->shortText = $shortText;
+        $this->short_text = $short_text;
     }
 
     /**
@@ -166,7 +168,7 @@ class News {
      */
     public function getShortText()
     {
-        return $this->shortText;
+        return $this->short_text;
     }
 
     /**
@@ -184,5 +186,11 @@ class News {
     {
         return $this->time;
     }
+
+
+
+    // getters/setters
+
+
 
 }
