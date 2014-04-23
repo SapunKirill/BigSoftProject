@@ -49,8 +49,28 @@ return array(
                     ),
                 ),
             ),
+                'salary' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/salary/search[/:position][/:technology][/:city][/:experience][/:price]',
+                    'constraints' => array(
+                        'search'=> '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'position'   => '[0-9]+',
+                        'technology'   => '[0-9]+',                        
+                        'city'   => '[0-9]+',
+                        'experience'   => '[0-9]+',
+                        'price'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Salary',
+                        'action'        => 'search'
+                    ),
+                ),
+            ),
         ),
     ),
+    
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

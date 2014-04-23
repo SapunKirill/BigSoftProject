@@ -5,7 +5,7 @@
 
                 <div class="col-md-2">
                     <select name="technology" select class="selectpicker">
-                        <option>Выберите технологию:</option>
+                        <option value="0">Выберите технологию:</option>
                         <?php foreach ($technology as $value): ?>
                             <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
                         <?php endforeach; ?>
@@ -14,7 +14,7 @@
 
                 <div class="col-md-3">
                     <select name="position" select class="selectpicker">
-                        <option>Выберите должность:</option>
+                        <option value="0">Выберите должность:</option>
                         <?php foreach ($position as $value): ?>
                             <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
                         <?php endforeach; ?>
@@ -23,7 +23,7 @@
                 
                 <div class="col-md-2">
                     <select name="city" select class="selectpicker">
-                        <option>Выберите город:</option>
+                        <option value="0">Выберите город:</option>
                         <?php foreach ($city as $value): ?>
                             <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
                         <?php endforeach; ?>
