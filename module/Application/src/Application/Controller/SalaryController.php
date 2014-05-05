@@ -30,10 +30,22 @@ class SalaryController extends AbstractActionController {
     }
 
     public function indexAction() {
+
+
+
+        $expdate = new \DateTime('-1 year');
+        $date = $expdate->getTimestamp();
+
+
+
+
+
+
         return new ViewModel(array(
             'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
             'position' => $this->getEntityManager()->getRepository('Application\Entity\Position')->findAll(),
             'city' => $this->getEntityManager()->getRepository('Application\Entity\City')->findAll(),
+            'date' => $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findByDate($date)
         ));
     }
 
@@ -98,10 +110,19 @@ class SalaryController extends AbstractActionController {
             }
         }
 
-        return new ViewModel(array(
-            'vacancy' => $this->getEntityManager()
-                    ->getRepository('Application\Entity\Vacancy')
-                    ->findById($vacancy_id)));
+        if (empty($vacancy_id)) {
+            return new ViewModel(array(
+                'vacancy' => NULL));
+        } else {
+            return new ViewModel(array(
+                'vacancy' => $this->getEntityManager()
+                        ->getRepository('Application\Entity\Vacancy')
+                        ->findById($vacancy_id),
+                'company' => $this->getEntityManager()
+                        ->getRepository('Application\Entity\CompanyVacancy')
+                        ->findBy(array('vacancy' => $vacancy_id))
+            ));
+        }
     }
 
 }

@@ -21,6 +21,12 @@ class Vacancy {
 
     /** @ORM\Column(name="`price`", type="integer", nullable=true) */
     protected $price;
+    
+    /** @ORM\Column(name="`date_create`", type="datetime", nullable=true) */
+    protected $date_create;
+    
+    /** @ORM\Column(name="`date_end`", type="datetime", nullable=true) */
+    protected $date_end;
 
     /**
      * @param mixed $description
@@ -85,7 +91,37 @@ class Vacancy {
     {
         return $this->price;
     }
+    /**
+     * @param mixed $date_create
+     */
+    public function setDateCreate($date_create)
+    {
+        $this->date_create = $date_create;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getDateCreate()
+    {
+        return $this->date_create;
+    }
+
+            /**
+     * @param mixed $date_end
+     */
+    public function setDateEnd($date_end)
+    {
+        $this->date_end = $date_end;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEnd()
+    {
+        return $this->date_end;
+    }
 
 
 
