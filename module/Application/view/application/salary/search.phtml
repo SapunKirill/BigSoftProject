@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="listVacancy">
+                <?php
+                if (empty($vacancy)) {
+                    echo '<div class="alert alert-info">Нет результатов</div>';
+                } else {
+
+                    foreach ($vacancy as $vacancyResult) {
+                        foreach ($company as $companyResult) {
+                            echo '<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">' . $vacancyResult->getName() . '</h3>
+                        </div>
+                        <div class="panel-body">' . $vacancyResult->getDescription() . '</div>
+                        <div class="panel-footer"><div class="price">' . $vacancyResult->getPrice() . '</div>';
+                            switch ($vacancyResult->getId()) {
+                                case $companyResult->getVacancy()->getId():
+                                    echo '<a class="company"  href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                            }
+                            echo '</div></div>';
+                        }
+                    }
+                };
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
