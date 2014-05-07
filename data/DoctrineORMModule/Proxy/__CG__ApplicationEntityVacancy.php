@@ -268,12 +268,12 @@ class Vacancy extends \Application\Entity\Vacancy implements \Doctrine\ORM\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setDateCreate($date_create)
+    public function setDateCreate()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateCreate', array($date_create));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateCreate', array());
 
-        return parent::setDateCreate($date_create);
+        return parent::setDateCreate();
     }
 
     /**

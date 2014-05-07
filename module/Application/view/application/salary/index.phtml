@@ -31,10 +31,10 @@
             </div>
 
             <div class="col-md-1">
-                <input type="text" class="form-control" name="experience" size="6" maxlength="2" placeholder="Стаж, лет" />
+                <input type="text" class="form-control" name="experience" size="6" maxlength="2" value="" placeholder="Стаж, лет"  />
             </div>
             <div class="col-md-1">
-                <input type="text" class="form-control" name="price" size="6" maxlength="4" placeholder="Сумма, $" />
+                <input type="text" class="form-control" name="price" size="6" maxlength="4" placeholder="Сумма, $" value="" />
             </div>
 
 
@@ -47,6 +47,8 @@
 </div>
 <div class="container">
     <div class="row">
+        <div class="col-md-9">
+        
         <?php
         class Graphical {
             public $price = array();
@@ -179,6 +181,84 @@
                 </tr>
             </tbody>
         </table>
+            </div>
+
+    </div>
+        <div class="row">
+                <div class="col-md-3">
+            <form id="addVacancy" action="#" method="POST">
+               
+                <select name="companyy" select class="form-control">
+                    <option value="0">Я компания</option>
+                    <?php foreach ($company as $value): ?>
+                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                    <?php endforeach; ?>
+                </select> 
+               
+                <select name="technology" select class="form-control">
+                    <option value="0">Выберите технологию:</option>
+                    <?php foreach ($technology as $value): ?>
+                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>        
+
+           
+                <select name="position" select class="form-control">
+                    <option value="0">Выберите должность:</option>
+                    <?php foreach ($position as $value): ?>
+                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>            
+
+            
+                <select name="city" select class="form-control">
+                    <option value="0">Выберите город:</option>
+                    <?php foreach ($city as $value): ?>
+                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>
+                
+            
+                <input type="text" name="vacancyName" placeholder="Название вакансии"/>
+                <textarea name="vacancyDescr" rows="10" cols="70" placeholder="Описание"></textarea>
+                <input type="text" name="vacancyPrice" placeholder="Зарплата, от"/>
+                <input type="text" name="vacancyExpr" placeholder="Опыт, лет"/>
+                <select title="Актуальность вакансии" name="vacancyActive">
+                    <option value='10'>10 дней</option>
+                    <option value='15'>15 дней</option>
+                    <option value='20'>20 дней</option>
+                    <option value='30'>30 дней</option>                    
+                </select>
+                <input type="submit" class="btn btn-success" value="Добавить"/>
+            </form>    
+        </div>
+        
+                    <div class="col-md-12">
+            <div class="listVacancy">
+                <?php
+                if (empty($vacancy)) {
+                    echo '<div class="alert alert-info">Нет результатов</div>';
+                } else {
+                    foreach ($vacancy as $vacancyResult) {
+                        echo '<div class="panel panel-default">';
+                        echo '<div class="panel-heading">                           
+                        <h3 class="panel-title">' . $vacancyResult->getName() . '</h3>
+                        </div>';
+                        echo '<div class="panel-body">' . $vacancyResult->getDescription() . '</div>';
+                        echo '<div class="panel-footer"><div class="price">' . $vacancyResult->getPrice() . '</div>';
+                        foreach ($companyVacancy as $companyResult) {
+                            switch ($vacancyResult->getId()) {
+                                case $companyResult->getVacancy()->getId():
+                                    echo '<a class="company"  href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                            }
+                        }
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                };
+                ?>
+            </div>
+        </div>
     </div>
 </div>
 

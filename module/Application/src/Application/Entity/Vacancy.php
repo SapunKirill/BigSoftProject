@@ -94,9 +94,9 @@ class Vacancy {
     /**
      * @param mixed $date_create
      */
-    public function setDateCreate($date_create)
+    public function setDateCreate()
     {
-        $this->date_create = $date_create;
+        $this->date_create = new \DateTime('now');
     }
 
     /**
@@ -112,7 +112,7 @@ class Vacancy {
      */
     public function setDateEnd($date_end)
     {
-        $this->date_end = $date_end;
+        $this->date_end = new \DateTime($date_end);
     }
 
     /**

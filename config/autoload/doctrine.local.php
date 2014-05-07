@@ -10,5 +10,8 @@ return array(
           'port'     => '3306',
           'user'     => 'root',
           'password' => '12345',
-          'dbname'   => 'database',
+          'dbname'   => 'project',
+          'driverOptions' => array(
+           1002 => 'SET NAMES utf8'
+           )
 )))));

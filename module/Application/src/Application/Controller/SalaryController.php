@@ -6,6 +6,8 @@ use Application\Entity\Position;
 use Application\Entity\Vacancy;
 use Application\Entity\Technology;
 use Application\Entity\Needs;
+use Application\Entity\VacancyNeeds;
+use Application\Entity\CompanyVacancy;
 use Application\Entity\City;
 use Zend;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -31,20 +33,81 @@ class SalaryController extends AbstractActionController {
 
     public function indexAction() {
 
+        if (empty($this->params()->fromPost())) {
+            echo 'Внесите данные';
+        } else {
+            $formPostNeeds['technology_id'] = $this->params()->fromPost('technology');
+            $formPostNeeds['position_id'] = $this->params()->fromPost('position');
+            $formPostNeeds['city_id'] = $this->params()->fromPost('city');
+            $formPostNeeds['experience'] = $this->params()->fromPost('vacancyExpr');
 
+            $resultNeeds = $this->getEntityManager()->getRepository('Application\Entity\Needs')->findBy($formPostNeeds);
+            $needsId = 0;
+            if (empty($resultNeeds)) {
+                $needs = new Needs();
+                $needs->setTechnologyId($this->params()->fromPost('technology'));
+                $needs->setPositionId($this->params()->fromPost('position'));
+                $needs->setCityId($this->params()->fromPost('city'));
+                $needs->setExperience($this->params()->fromPost('vacancyExpr'));
+                $this->getEntityManager()->persist($needs);
+                $this->getEntityManager()->flush();
+                $needsId = $needs->getId();
+            } else {
+                foreach ($resultNeeds as $value) {
+                    $needsId = $value->getId();
+                }
+            }
+
+
+            $formPostVacancy['name'] = $this->params()->fromPost('vacancyName');
+            $formPostVacancy['description'] = $this->params()->fromPost('vacancyDescr');
+
+            $resultVacancy = $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findBy($formPostVacancy);
+
+            
+
+            if (empty($resultVacancy)) {
+                $vacancy = new Vacancy();
+                $vacancy->setName($this->params()->fromPost('vacancyName'));
+                $vacancy->setDescription($this->params()->fromPost('vacancyDescr'));
+                $vacancy->setPrice($this->params()->fromPost('vacancyPrice'));
+                $vacancy->setDateCreate();
+                $vacancy->setDateEnd('+' . $this->params()->fromPost('vacancyActive') . 'day');
+                $this->getEntityManager()->persist($vacancy);
+                $this->getEntityManager()->flush();
+                $vacancyId = $vacancy->getId();
+                
+                    $vacancyNeeds = new VacancyNeeds();
+                    $vacancyNeeds->setVacancyId($vacancyId);
+                    $vacancyNeeds->setNeedsId($needsId);
+                    $this->getEntityManager()->persist($vacancyNeeds);
+                    $this->getEntityManager()->flush();
+                
+                
+                    $companyVacancy = new CompanyVacancy();
+                    $companyVacancy->setVacancyId($vacancyId);
+                    $companyVacancy->setCompanyId($this->params()->fromPost('companyId'));
+                    $this->getEntityManager()->persist($companyVacancy);
+                    $this->getEntityManager()->flush();
+                
+                
+                echo 'Вакансия добавлена';
+                
+            } else {
+                echo 'Ваша запись уже существует, пожалуйста отредактируйте или удалите старую вакансию';
+            }
+        }
 
         $expdate = new \DateTime('-1 year');
         $date = $expdate->getTimestamp();
-
-
-
-
-
 
         return new ViewModel(array(
             'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
             'position' => $this->getEntityManager()->getRepository('Application\Entity\Position')->findAll(),
             'city' => $this->getEntityManager()->getRepository('Application\Entity\City')->findAll(),
+            'companyVacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findAll(),
+            'company' => $this->getEntityManager()->getRepository('Application\Entity\Companies')->findAll(),
+            'vacancy' => $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findAll(),
             'date' => $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findByDate($date)
         ));
     }
