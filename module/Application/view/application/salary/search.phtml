@@ -7,18 +7,25 @@
                     echo '<div class="alert alert-info">Нет результатов</div>';
                 } else {
                     foreach ($vacancy as $vacancyResult) {
+                        
                         echo '<div class="panel panel-default">';
                         echo '<div class="panel-heading">                           
-                        <h3 class="panel-title">' . $vacancyResult->getName() . '</h3>
+                        <h3 class="panel-title"><a href="vacancy/detail/'. $vacancyResult->getId() .'">' . $vacancyResult->getName() . '</a></h3>
                         </div>';
                         echo '<div class="panel-body">' . $vacancyResult->getDescription() . '</div>';
-                        echo '<div class="panel-footer"><div class="price">' . $vacancyResult->getPrice() . '</div>';
-                        foreach ($company as $companyResult) {
+                        echo '<div class="panel-footer">';
+                        echo '<div class="row">';
+                        echo '<div class="price col-md-2">' . $vacancyResult->getPrice() . ' $</div>';
+                        echo '<div class="company col-md-8">';
+                        foreach ($companyVacancy as $companyResult) {
                             switch ($vacancyResult->getId()) {
                                 case $companyResult->getVacancy()->getId():
-                                    echo '<a class="company"  href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                                    echo '<a   href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
                             }
                         }
+                        echo '</div>';
+                        echo '<div class="linkDetail col-md-2"><a href="/vacancy/detail/'. $vacancyResult->getId() .'"><button type="button" class="btn btn-info">Подробнее</button></a></div>';
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                     }

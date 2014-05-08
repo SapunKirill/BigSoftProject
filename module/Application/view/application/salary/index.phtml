@@ -48,153 +48,154 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-        
-        <?php
-        class Graphical {
-            public $price = array();
-            public $january = '2014-01';
-            public $february = '2014-02';
-            public $march = '2014-03';
-            public $april = '2014-04';
-            public $result;
 
-            public function graphPrice($array, $month) {
-                if ($array['date_create']->format('Y-m') == $month) {
-                    $this->price[] = $array['price'];
+            <?php
+
+            class Graphical {
+
+                public $price = array();
+                public $january = '2014-01';
+                public $february = '2014-02';
+                public $march = '2014-03';
+                public $april = '2014-04';
+                public $result;
+
+                public function graphPrice($array, $month) {
+                    if ($array['date_create']->format('Y-m') == $month) {
+                        $this->price[] = $array['price'];
+                    }
+                    return $this->price;
                 }
-                return $this->price;
+
+                public function meanPrice($price_array) {
+                    $this->result = array_sum($price_array) / count($price_array);
+                    return $this->result;
+                }
+
             }
 
-            public function meanPrice($price_array) {
-                $this->result = array_sum($price_array) / count($price_array);
-                return $this->result;
+            $january = new Graphical();
+            $february = new Graphical();
+            $march = new Graphical();
+            $april = new Graphical();
+
+            foreach ($date as $value) {
+                $january->graphPrice($value, $january->january);
+                $february->graphPrice($value, $february->february);
+                $march->graphPrice($value, $march->march);
+                $april->graphPrice($value, $april->april);
             }
+            ?>  
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>$</th>
+                        <th>Январь</th>
+                        <th>Февраль</th>
+                        <th>Март</th>
+                        <th>Апрель</th>
+                    </tr>  
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            10000
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            5000
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3000
+                        </td>
+                        <td>                        
+                        </td>
+                        <td>                        
+                        </td>
+                        <td>                        
+                        </td>
+                        <td>
+                            <?php
+                            if (empty($april->price)) {
+                                
+                            } else {
+                                $april->meanPrice($april->price);
+                                echo $april->result;
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1000
+                        </td>
 
-        }
+                        <td>
+                            <?php
+                            if (empty($january->price)) {
+                                
+                            } else {
+                                $january->meanPrice($january->price);
+                                echo $january->result;
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            if (empty($february->price)) {
+                                
+                            } else {
+                                $february->meanPrice($february->price);
+                                echo $february->result;
+                            }
+                            ?>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            0
+                        </td>
+                        <td>
 
-        $january = new Graphical();
-        $february = new Graphical();
-        $march = new Graphical();
-        $april = new Graphical();
+                        </td>
+                        <td>
 
-        foreach ($date as $value) {
-            $january->graphPrice($value, $january->january);
-            $february->graphPrice($value, $february->february);
-            $march->graphPrice($value, $march->march);
-            $april->graphPrice($value, $april->april);
-        }       
-        
-        ?>  
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>$</th>
-                    <th>Январь</th>
-                    <th>Февраль</th>
-                    <th>Март</th>
-                    <th>Апрель</th>
-                </tr>  
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        10000
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        5000
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        3000
-                    </td>
-                    <td>                        
-                    </td>
-                    <td>                        
-                    </td>
-                    <td>                        
-                    </td>
-                    <td>
-                        <?php
-                        if (empty($april->price)) {
-                            
-                        } else {
-                            $april->meanPrice($april->price);
-                            echo $april->result;
-                        }
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        1000
-                    </td>
+                        </td>
 
-                    <td>
-                        <?php
-                        if (empty($january->price)) {
-                            
-                        } else {
-                            $january->meanPrice($january->price);
-                            echo $january->result;
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        if (empty($february->price)) {
-                            
-                        } else {
-                            $february->meanPrice($february->price);
-                            echo $february->result;
-                        }
-                        ?>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        0
-                    </td>
-                    <td>
+                        <td>
+                            <?php
+                            if (empty($march->price)) {
+                                echo '0';
+                            } else {
+                                $march->meanPrice($march->price);
+                                echo $march->result;
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
 
-                    </td>
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <?php
-                        if (empty($march->price)) {
-                            echo '0';
-                        } else {
-                            $march->meanPrice($march->price);
-                            echo $march->result;
-                        }
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-
-                </tr>
-            </tbody>
-        </table>
-            </div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </div>
-        <div class="row">
-                <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3">
             <form id="addVacancy" action="#" method="POST">
-               
+
                 <select name="companyy" select class="form-control">
                     <option value="0">Я компания</option>
                     <?php foreach ($company as $value): ?>
                         <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
                     <?php endforeach; ?>
                 </select> 
-               
+
                 <select name="technology" select class="form-control">
                     <option value="0">Выберите технологию:</option>
                     <?php foreach ($technology as $value): ?>
@@ -202,7 +203,7 @@
                     <?php endforeach; ?>
                 </select>        
 
-           
+
                 <select name="position" select class="form-control">
                     <option value="0">Выберите должность:</option>
                     <?php foreach ($position as $value): ?>
@@ -210,15 +211,15 @@
                     <?php endforeach; ?>
                 </select>            
 
-            
+
                 <select name="city" select class="form-control">
                     <option value="0">Выберите город:</option>
                     <?php foreach ($city as $value): ?>
                         <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
                 </select>
-                
-            
+
+
                 <input type="text" name="vacancyName" placeholder="Название вакансии"/>
                 <textarea name="vacancyDescr" rows="10" cols="70" placeholder="Описание"></textarea>
                 <input type="text" name="vacancyPrice" placeholder="Зарплата, от"/>
@@ -232,8 +233,8 @@
                 <input type="submit" class="btn btn-success" value="Добавить"/>
             </form>    
         </div>
-        
-                    <div class="col-md-12">
+
+        <div class="col-md-12">
             <div class="listVacancy">
                 <?php
                 if (empty($vacancy)) {
@@ -242,16 +243,22 @@
                     foreach ($vacancy as $vacancyResult) {
                         echo '<div class="panel panel-default">';
                         echo '<div class="panel-heading">                           
-                        <h3 class="panel-title">' . $vacancyResult->getName() . '</h3>
+                        <h3 class="panel-title"><a href="vacancy/detail/' . $vacancyResult->getId() . '">' . $vacancyResult->getName() . '</a></h3>
                         </div>';
                         echo '<div class="panel-body">' . $vacancyResult->getDescription() . '</div>';
-                        echo '<div class="panel-footer"><div class="price">' . $vacancyResult->getPrice() . '</div>';
+                        echo '<div class="panel-footer">';
+                        echo '<div class="row">';
+                        echo '<div class="price col-md-2">' . $vacancyResult->getPrice() . ' $</div>';
+                        echo '<div class="company col-md-8">';
                         foreach ($companyVacancy as $companyResult) {
                             switch ($vacancyResult->getId()) {
                                 case $companyResult->getVacancy()->getId():
-                                    echo '<a class="company"  href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                                    echo '<a   href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
                             }
                         }
+                        echo '</div>';
+                        echo '<div class="linkDetail col-md-2"><a href="/vacancy/detail/' . $vacancyResult->getId() . '"><button type="button" class="btn btn-info">Подробнее</button></a></div>';
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                     }

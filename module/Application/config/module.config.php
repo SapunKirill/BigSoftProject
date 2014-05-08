@@ -49,6 +49,21 @@ return array(
                     ),
                 ),
             ),
+            
+                'vacancyDetail' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/vacancy/detail/:id',
+                    'constraints' => array(
+                        'id'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Salary',
+                        'action'        => 'detail'
+                    ),
+                ),
+            ),
 
         ),
     ),

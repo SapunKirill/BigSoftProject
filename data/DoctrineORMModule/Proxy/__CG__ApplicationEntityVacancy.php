@@ -64,10 +64,10 @@ class Vacancy extends \Application\Entity\Vacancy implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'description', 'price', 'date_create', 'date_end');
+            return array('__isInitialized__', 'id', 'name', 'description', 'price', 'date_create', 'date_end', 'views');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'description', 'price', 'date_create', 'date_end');
+        return array('__isInitialized__', 'id', 'name', 'description', 'price', 'date_create', 'date_end', 'views');
     }
 
     /**
@@ -307,6 +307,28 @@ class Vacancy extends \Application\Entity\Vacancy implements \Doctrine\ORM\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateEnd', array());
 
         return parent::getDateEnd();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setViews($views)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setViews', array($views));
+
+        return parent::setViews($views);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getViews()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getViews', array());
+
+        return parent::getViews();
     }
 
 }

@@ -27,6 +27,9 @@ class Vacancy {
     
     /** @ORM\Column(name="`date_end`", type="datetime", nullable=true) */
     protected $date_end;
+    
+    /** @ORM\Column(name="`views`", type="integer",nullable=true) */
+    protected $views;
 
     /**
      * @param mixed $description
@@ -107,7 +110,7 @@ class Vacancy {
         return $this->date_create;
     }
 
-            /**
+     /**
      * @param mixed $date_end
      */
     public function setDateEnd($date_end)
@@ -122,7 +125,23 @@ class Vacancy {
     {
         return $this->date_end;
     }
+    
+    /**
+     * @param mixed $views
+     */
 
+    public function setViews($views)
+    {
+        $this->views = $views;
+    }
+    
+    /**
+     * @return mixed $views
+     */
 
-
+    public function getViews()
+    {
+        return $this->views;
+    }
+    
 }

@@ -138,9 +138,7 @@ class SalaryController extends AbstractActionController {
             $price = $this->params()->fromQuery("price");
         }
 
-        $resultNeeds = $this->getEntityManager()
-                ->getRepository('Application\Entity\Needs')
-                ->findBy($needs);
+        $resultNeeds = $this->getEntityManager()->getRepository('Application\Entity\Needs')->findBy($needs);
 
         $needsId = array();
         if ($experienceMin !== 0) {
@@ -155,9 +153,7 @@ class SalaryController extends AbstractActionController {
             }
         }
 
-        $vacancyNeedsId = $this->getEntityManager()
-                ->getRepository('Application\Entity\VacancyNeeds')
-                ->findBy(array('needs' => $needsId));
+        $vacancyNeedsId = $this->getEntityManager()->getRepository('Application\Entity\VacancyNeeds')->findBy(array('needs' => $needsId));
 
 
         $vacancy_id = array();
@@ -178,14 +174,31 @@ class SalaryController extends AbstractActionController {
                 'vacancy' => NULL));
         } else {
             return new ViewModel(array(
-                'vacancy' => $this->getEntityManager()
-                        ->getRepository('Application\Entity\Vacancy')
-                        ->findById($vacancy_id),
-                'company' => $this->getEntityManager()
-                        ->getRepository('Application\Entity\CompanyVacancy')
-                        ->findBy(array('vacancy' => $vacancy_id))
+                'vacancy' => $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findById($vacancy_id),
+                'companyVacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findBy(array('vacancy' => $vacancy_id))
             ));
         }
     }
-
+    
+    public function detailAction() {
+        $vacancyResult = $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findById($this->params()->fromRoute('id'));
+        foreach ($vacancyResult as $value){
+            if($value->getViews() == NULL){                
+                $value->setViews('1');
+                $value->setId($value->getId());                
+                $this->getEntityManager()->flush();                
+            }else{
+                $views = $value->getViews();
+                $views ++;
+                $value->setViews($views);
+                $value->setId($value->getId());                
+                $this->getEntityManager()->flush();
+            }
+        }
+        
+        return new ViewModel(array(
+            'vacancy' => $vacancyResult,
+            'company' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findBy(array('vacancy_id' => $this->params()->fromRoute('id')))
+            ));        
+    }
 }
