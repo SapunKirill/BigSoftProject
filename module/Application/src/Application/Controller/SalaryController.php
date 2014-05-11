@@ -58,13 +58,10 @@ class SalaryController extends AbstractActionController {
                 }
             }
 
-
             $formPostVacancy['name'] = $this->params()->fromPost('vacancyName');
             $formPostVacancy['description'] = $this->params()->fromPost('vacancyDescr');
 
             $resultVacancy = $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findBy($formPostVacancy);
-
-            
 
             if (empty($resultVacancy)) {
                 $vacancy = new Vacancy();

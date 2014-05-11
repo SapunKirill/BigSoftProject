@@ -240,7 +240,9 @@
                 if (empty($vacancy)) {
                     echo '<div class="alert alert-info">Нет результатов</div>';
                 } else {
+                    $today = new \DateTime('now');  
                     foreach ($vacancy as $vacancyResult) {
+                        if ($vacancyResult->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')){
                         echo '<div class="panel panel-default">';
                         echo '<div class="panel-heading">                           
                         <h3 class="panel-title"><a href="vacancy/detail/' . $vacancyResult->getId() . '">' . $vacancyResult->getName() . '</a></h3>
@@ -261,7 +263,7 @@
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
-                    }
+                    }}
                 };
                 ?>
             </div>

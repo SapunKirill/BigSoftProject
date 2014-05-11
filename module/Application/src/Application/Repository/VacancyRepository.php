@@ -15,5 +15,4 @@ class VacancyRepository extends EntityRepository {
         ->createQuery('SELECT e FROM ' . $this->getEntityName('Application\Entity\Vacancy') . ' e WHERE e.date_create >=  ' . $date . '')
         ->getArrayResult();
     }
-
 }
