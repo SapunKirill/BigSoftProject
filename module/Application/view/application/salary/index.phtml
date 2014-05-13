@@ -186,88 +186,75 @@
 
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <form id="addVacancy" action="#" method="POST">
-
-                <select name="companyy" select class="form-control">
-                    <option value="0">Я компания</option>
-                    <?php foreach ($company as $value): ?>
-                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
-                    <?php endforeach; ?>
-                </select> 
-
-                <select name="technology" select class="form-control">
-                    <option value="0">Выберите технологию:</option>
-                    <?php foreach ($technology as $value): ?>
-                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>        
-
-
-                <select name="position" select class="form-control">
-                    <option value="0">Выберите должность:</option>
-                    <?php foreach ($position as $value): ?>
-                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>            
-
-
-                <select name="city" select class="form-control">
-                    <option value="0">Выберите город:</option>
-                    <?php foreach ($city as $value): ?>
-                        <option value="<?php echo $value->getId() ?>"><?php echo $value->getName() ?></option>
-                <?php endforeach; ?>
-                </select>
-
-
-                <input type="text" name="vacancyName" placeholder="Название вакансии"/>
-                <textarea name="vacancyDescr" rows="10" cols="70" placeholder="Описание"></textarea>
-                <input type="text" name="vacancyPrice" placeholder="Зарплата, от"/>
-                <input type="text" name="vacancyExpr" placeholder="Опыт, лет"/>
-                <select title="Актуальность вакансии" name="vacancyActive">
-                    <option value='10'>10 дней</option>
-                    <option value='15'>15 дней</option>
-                    <option value='20'>20 дней</option>
-                    <option value='30'>30 дней</option>                    
-                </select>
-                <input type="submit" class="btn btn-success" value="Добавить"/>
-            </form>    
-        </div>
-
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="listVacancy">
                 <?php
                 if (empty($vacancy)) {
                     echo '<div class="alert alert-info">Нет результатов</div>';
                 } else {
-                    $today = new \DateTime('now');  
+                    $today = new \DateTime('now');
                     foreach ($vacancy as $vacancyResult) {
-                        if ($vacancyResult->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')){
-                        echo '<div class="panel panel-default">';
-                        echo '<div class="panel-heading">                           
+                        if ($vacancyResult->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')) {
+                            echo '<div class="panel panel-default">';
+                            echo '<div class="panel-heading">                           
                         <h3 class="panel-title"><a href="vacancy/detail/' . $vacancyResult->getId() . '">' . $vacancyResult->getName() . '</a></h3>
                         </div>';
-                        echo '<div class="panel-body">' . $vacancyResult->getDescription() . '</div>';
-                        echo '<div class="panel-footer">';
-                        echo '<div class="row">';
-                        echo '<div class="price col-md-2">' . $vacancyResult->getPrice() . ' $</div>';
-                        echo '<div class="company col-md-8">';
-                        foreach ($companyVacancy as $companyResult) {
-                            switch ($vacancyResult->getId()) {
-                                case $companyResult->getVacancy()->getId():
-                                    echo '<a   href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                            echo '<div class="panel-body">' . substr($vacancyResult->getDescription(),0,500) . '</div>';
+                            echo '<div class="panel-footer">';
+                            echo '<div class="row">';
+                            echo '<div class="price col-md-2">' . $vacancyResult->getPrice() . ' $</div>';
+                            echo '<div class="company col-md-8">';
+                            foreach ($companyVacancy as $companyResult) {
+                                switch ($vacancyResult->getId()) {
+                                    case $companyResult->getVacancy()->getId():
+                                        echo '<a   href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
+                                }
                             }
+                            echo '</div>';
+                            echo '<div class="linkDetail col-md-2"><a href="/vacancy/detail/' . $vacancyResult->getId() . '"><button type="button" class="btn btn-info">Подробнее</button></a></div>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
                         }
-                        echo '</div>';
-                        echo '<div class="linkDetail col-md-2"><a href="/vacancy/detail/' . $vacancyResult->getId() . '"><button type="button" class="btn btn-info">Подробнее</button></a></div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                    }}
+                    }
                 };
                 ?>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel panel-heading">Свежедобавленные вакансии</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <?php
+                        $id = array();
+                        foreach ($vacancy as $value) {
+                           $id[] = $value->getId();
+                            
+                        }
+                            $maxId = max($id);
+                            $countVacancy = 4;
+                            $minId = $maxId - $countVacancy;
+                        foreach ($vacancy as $value) {
+                            if ($value->getId() == $maxId || $value->getId() >= $minId) {
+                                echo '<a href="vacancy/detail/' . $value->getId() . '">';
+                                echo '<li class="list-group-item">';
+                                echo '<span class="badge">' . $value->getPrice() . '$ </span>';
+                                echo $value->getName();
+                                echo '</li>';
+                                echo '</a>';
+                            }
+                        }
+                        ?>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="/vacancy/add"><button class="btn btn-success">Добавить вакансию</button></a>
+
     </div>
 </div>
 

@@ -60,7 +60,18 @@ return array(
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Salary',
-                        'action'        => 'detail'
+                        'action'        => 'vacancyDetail'
+                    ),
+                ),
+            ),
+               'vacancyAdd' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/vacancy/add',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Salary',
+                        'action'        => 'vacancyAdd'
                     ),
                 ),
             ),
