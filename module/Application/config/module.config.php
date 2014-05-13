@@ -75,8 +75,35 @@ return array(
                     ),
                 ),
             ),
-
-        ),
+            'company' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/company',
+                    'constraints' => array(
+                        'action'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Company',
+                        'action'        => 'index'
+                    ),
+                ),
+            ),
+            'company' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/company/:id',
+                    'constraints' => array(
+                        'action'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Company',
+                        'action'        => 'listcompany'
+                    ),
+                ),
+            ),
+         ),
     ),
     
     'service_manager' => array(

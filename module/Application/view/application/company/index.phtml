@@ -1,0 +1,29 @@
+<?php
+
+$title = 'Компании';
+$title->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('company', array('action'=>'addcompany')); ?>">Добавьте новую компанию</a>
+</p>
+
+<div>
+    <table class="table">
+        <tr>
+            <tn>Название</tn>
+            <tn>Кол-во сотрудников</tn>
+            <tn>Вакансии</tn>
+            <tn>Отзывы</tn>
+            <tn>&nbsp;</tn>
+        </tr>
+        <?php foreach ($company as $value) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($value->getName());?></td>
+                <td><?php echo $this->escapeHtml($value->getWorkerCount());?></td>
+                <td><?php echo $this->escapeHtml($value->getId());?></td>
+                <td><?php echo $this->escapeHtml($value->getText());?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
