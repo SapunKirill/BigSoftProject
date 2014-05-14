@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <?php
+        echo '<div id="newsBlock" class="col-md-12">';
+        if (empty($news)) {
+            echo '<div class="alert alert-info">Такой новости не существует</div>';
+        } else {
+
+            foreach ($news as $newsResult) {
+
+                echo '<div class="blog-post">';
+                echo '<h3 class="blog-post-title">' . $newsResult->getName() . '</h3>';
+                echo '<div class="caption">' . $newsResult->getFullText() . '</div>';
+                echo '</div>';
+            }
+
+            echo '<div id="commentsList" >';
+            foreach ($commentsToNews as $commentsToNewsResult) {
+                echo '<div id="comment">';
+                echo $commentsToNewsResult->getComments()->getText();
+                echo '</div>';
+                foreach ($commentsToComments as $commentsToCommentsResult) {
+                    if($commentsToCommentsResult->getParent()->getId() == $commentsToNewsResult->getComments()->getId())
+                        {
+                        echo $commentsToCommentsResult->getChild()->getText();
+
+                    }
+                }
+            }
+            echo '</div>';
+        };
+        echo '</div>';
+        ?>
+
+
+    </div>
+</div>
+

@@ -2,6 +2,7 @@
 namespace Application\Controller;
 
 use Application\Entity\News;
+use Application\Entity\NewsComments;
 use Zend;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -27,34 +28,22 @@ class NewsController extends AbstractActionController
         return $this->em;
     }
 
-
-
     public function indexAction()
     {
-/*        $objectManager = $this
-            ->getServiceLocator()
-            ->get('Doctrine\ORM\EntityManager');
-        $news = new News();
-        $news->setName("blabla");
-        $objectManager->persist($news);
-        $objectManager->flush();*/
-
-
-        $news = $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('id' => 1));
-       foreach($news as $value){
-           print_r($value->getName());
-      }
-
-        $v = $this->params()->fromPost("fam");
-        print_r($v);
-/*        $values = $this->params()->fromQuery();
-        $name = $values['name'];
-        print_r($name);*/
-
-/*        $test = $this->params('testParams');
-        print_r($test);*/
-
-
-        return new ViewModel();
+        return new ViewModel(array(
+            'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array(),array('id' => 'DESC')),
+            'comments' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findAll(),
+        ));
+    }
+    
+    public function newsDetailAction(){
+        
+                
+        return new ViewModel(array(
+            'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findById($this->params()->fromRoute('id')),
+            'commentsToNews' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findBy(array('news_id' => $this->params()->fromRoute('id'))),
+            'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll(),
+        ));        
+        
     }
 }

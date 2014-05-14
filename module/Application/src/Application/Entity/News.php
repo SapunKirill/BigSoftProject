@@ -27,7 +27,7 @@ class News {
     /** @ORM\Column(name="`img`", type="string", nullable=true) */
     protected $img;
 
-    /** @ORM\Column(name="`time`", type="string", nullable=true) */
+    /** @ORM\Column(name="`time`", type="date", nullable=true) */
     protected $time;
 
     /** @ORM\Column(name="`like`", type="integer", nullable=true) */

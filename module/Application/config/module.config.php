@@ -35,17 +35,32 @@ return array(
                     ),
                 ),
             ),
-            'news' => array(
+         'newsList' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/news[/:testParams]',
-                    'constraints' => array(
-                        'testParams'   => '[0-9]+',
-                    ),
+                    'route'    => '/news',
+
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'News',
                         'action'        => 'index'
+                    ),
+                ),
+            ),
+            'newsDetail' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/news/:Y/:m/:d/:id',
+                    'constraints' => array(
+                        'Y'   => '[0-9]+',
+                        'm'   => '[0-9]+',
+                        'd'   => '[0-9]+',
+                        'id'   => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'newsDetail'
                     ),
                 ),
             ),
