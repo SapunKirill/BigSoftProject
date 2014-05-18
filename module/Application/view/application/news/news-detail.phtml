@@ -1,38 +1,90 @@
+
 <div class="container">
     <div class="row">
-        <?php
-        echo '<div id="newsBlock" class="col-md-12">';
-        if (empty($news)) {
-            echo '<div class="alert alert-info">Такой новости не существует</div>';
-        } else {
+        <div id="newsBlock" class="col-md-12">        
+            <?php
+            if (empty($news)) {
+                echo '<div class="alert alert-info">Такой новости не существует</div>';
+            } else {
+                $commentsPrimaryIdArray = array();
+                $commentsChildPrimaryArray = array();
+                $commentsChildChildArray = array();
 
-            foreach ($news as $newsResult) {
-
-                echo '<div class="blog-post">';
-                echo '<h3 class="blog-post-title">' . $newsResult->getName() . '</h3>';
-                echo '<div class="caption">' . $newsResult->getFullText() . '</div>';
-                echo '</div>';
-            }
-
-            echo '<div id="commentsList" >';
-            foreach ($commentsToNews as $commentsToNewsResult) {
-                echo '<div id="comment">';
-                echo $commentsToNewsResult->getComments()->getText();
-                echo '</div>';
-                foreach ($commentsToComments as $commentsToCommentsResult) {
-                    if($commentsToCommentsResult->getParent()->getId() == $commentsToNewsResult->getComments()->getId())
-                        {
-                        echo $commentsToCommentsResult->getChild()->getText();
-
+                function comToCom($arrayCommentsToComments, $valuePrimary) {
+                    
+                    foreach ($arrayCommentsToComments as $value) {
+                        if ($value->getParent()->getId() == $valuePrimary->getChild()->getId()) {
+                            $commentsChildChildArray[] = $value->getParent()->getId();
+                            echo '<div  class="panel panel-default">';
+                            echo '<div class="panel-heading">';
+                            echo $value->getChild()->getTime()->format('Y-m-d H-m');
+                            echo '</div>';
+                            echo '<div class="panel-body">';
+                            echo $value->getChild()->getText();
+                            echo comToCom($arrayCommentsToComments, $value);
+                            echo '</div>';
+                            echo '</div>';                            
+                        }
                     }
+                    
                 }
+
+                foreach ($news as $newsResult) {
+
+                    echo '<div class="blog-post">';
+                    echo '<h3 class="blog-post-title">' . $newsResult->getName() . '</h3>';
+                    echo '<div class="caption">' . $newsResult->getFullText() . '</div>';
+                    echo '</div>';
+                }
+
+                echo '<div id="commentsList" >';
+                foreach ($commentsToNews as $commentsToNewsResult) {
+                    $commentsPrimaryIdArray[] = $commentsToNewsResult->getComments()->getId();
+                    echo '<div id="parent" class="panel panel-default">';
+                    echo '<div class="panel-heading">';
+                    echo '<div class="row">';
+                    echo '<div class="col-md-3">';
+                    echo $commentsToNewsResult->getComments()->getTime()->format('Y-m-d H-m');
+                    echo '</div>';
+                    echo '<div class="col-md-3">';
+                    echo '<span class="likeCount">' .$commentsToNewsResult->getComments()->getLike(). ' </span><button type="button" id="like" class="btn btn-sm btn-success">+</button>';
+                    echo '<button type="button" id="dislike" class="btn btn-sm btn-danger">-</button><span class="dislikeCount"> ' .$commentsToNewsResult->getComments()->getDisLike(). '</span>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div class="panel-body">';
+                    echo $commentsToNewsResult->getComments()->getText();
+
+                    foreach ($commentsToComments as $value) {
+                        if ($value->getParent()->getId() == $commentsToNewsResult->getComments()->getId()) {
+                            $commentsChildPrimaryArray[] = $value->getParent()->getId();
+                            echo '<div id="child" class="panel panel-default">';
+                            echo '<div class="panel-heading">';
+                            echo $value->getChild()->getTime()->format('Y-m-d H-m');
+                            echo '</div>';
+                            echo '<div class="panel-body">';
+                            echo $value->getChild()->getText();
+                            echo comToCom($commentsToComments, $value);
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    }
+                    echo '</div>';
+                    echo '</div>';
+                }
+                echo '</div>';
+                
+                echo '<pre>';
+                print_r($commentsPrimaryIdArray);
+                print_r($commentsChildPrimaryArray);
+                print_r($commentsChildChildArray);
+                echo '</pre>';
+
+                
             }
-            echo '</div>';
-        };
-        echo '</div>';
-        ?>
+            ?>
 
-
+        </div>
     </div>
 </div>
 
