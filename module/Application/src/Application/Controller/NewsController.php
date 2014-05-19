@@ -36,14 +36,57 @@ class NewsController extends AbstractActionController
         ));
     }
     
-    public function newsDetailAction(){
+    public function listDateAction(){       
         
+        $expdate = new \DateTime($this->params()->fromRoute('Y').'-'.$this->params()->fromRoute('m').'-'.$this->params()->fromRoute('d'));
+        
+        return new ViewModel(array(
+            'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('time' => $expdate)),
+            'comments' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findAll(),
+        ));
+        
+    }
+
+        public function newsDetailAction(){
+        $expdate = new \DateTime($this->params()->fromRoute('Y').'-'.$this->params()->fromRoute('m').'-'.$this->params()->fromRoute('d'));
                 
         return new ViewModel(array(
-            'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findById($this->params()->fromRoute('id')),
+            
+            'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('id' => $this->params()->fromRoute('id'),'time'=> $expdate)),
             'commentsToNews' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findBy(array('news_id' => $this->params()->fromRoute('id'))),
             'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll(),
         ));        
         
     }
+        public function newsAddAction(){
+            
+            if(empty($this->params()->fromPost())){
+                echo 'Внесите данные';
+            }else{
+            
+                $formPostNews['name']=  $this->params()->fromPost('newsName');
+                $formPostNews['short_text']=  $this->params()->fromPost('newsShortText');
+                $formPostNews['full_text']=  $this->params()->fromPost('newsFullText');
+             
+                $resultNews = $this->getEntityManager()->getRepository('Application\Entity\News')->findBy($formPostNews);
+                
+                if(empty($resultNews)){
+                    $expdate = new \DateTime('now');
+                    $expdate->format('Y-m-d');
+                    $news = new News();
+                    $news->setName($this->params()->fromPost('newsName'));
+                    $news->setShortText($this->params()->fromPost('newsShortText'));
+                    $news->setFullText($this->params()->fromPost('newsFullText'));
+                    $news->setTime($expdate);
+                    $this->getEntityManager()->persist($news);
+                    $this->getEntityManager()->flush();
+                    
+                    echo 'Новость успешно добавлена';
+                }else{
+                    echo 'Такая запись уже существует, пожалуйста отредактируйте или удалите старую новость';
+            }}
+                
+            return new ViewModel();
+            
+        }
 }

@@ -47,6 +47,22 @@ return array(
                     ),
                 ),
             ),
+          'newsListDate' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/news/:Y/:m/:d',
+                    'constraints' => array(
+                        'Y'   => '[0-9]+',
+                        'm'   => '[0-9]+',
+                        'd'   => '[0-9]+',                        
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'listDate'
+                    ),
+                ),
+            ),
             'newsDetail' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -61,6 +77,17 @@ return array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'News',
                         'action'        => 'newsDetail'
+                    ),
+                ),
+            ),
+            'newsAdd' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/news/add',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'newsAdd'
                     ),
                 ),
             ),
