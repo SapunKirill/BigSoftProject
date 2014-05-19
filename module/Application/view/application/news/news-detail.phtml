@@ -11,6 +11,7 @@
                 $commentsChildChildArray = array();
 
                 function comToCom($arrayCommentsToComments, $valuePrimary) {
+                    
                     foreach ($arrayCommentsToComments as $value) {
                         if ($value->getParent()->getId() == $valuePrimary->getChild()->getId()) {
                             $commentsChildChildArray[] = $value->getParent()->getId();
@@ -22,9 +23,10 @@
                             echo $value->getChild()->getText();
                             echo comToCom($arrayCommentsToComments, $value);
                             echo '</div>';
-                            echo '</div>';
+                            echo '</div>';                            
                         }
                     }
+                    
                 }
 
                 foreach ($news as $newsResult) {
@@ -45,8 +47,8 @@
                     echo $commentsToNewsResult->getComments()->getTime()->format('Y-m-d H-m');
                     echo '</div>';
                     echo '<div class="col-md-3">';
-                    echo '<span class="likeCount">' . $commentsToNewsResult->getComments()->getLike() . ' </span><button type="button" id="like" class="btn btn-sm btn-success">+</button>';
-                    echo '<button type="button" id="dislike" class="btn btn-sm btn-danger">-</button><span class="dislikeCount"> ' . $commentsToNewsResult->getComments()->getDisLike() . '</span>';
+                    echo '<span class="likeCount">' .$commentsToNewsResult->getComments()->getLike(). ' </span><button type="button" id="like" class="btn btn-sm btn-success">+</button>';
+                    echo '<button type="button" id="dislike" class="btn btn-sm btn-danger">-</button><span class="dislikeCount"> ' .$commentsToNewsResult->getComments()->getDisLike(). '</span>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -71,12 +73,14 @@
                     echo '</div>';
                 }
                 echo '</div>';
-
+                
                 echo '<pre>';
                 print_r($commentsPrimaryIdArray);
                 print_r($commentsChildPrimaryArray);
                 print_r($commentsChildChildArray);
                 echo '</pre>';
+
+                
             }
             ?>
 

@@ -356,12 +356,12 @@ class News extends \Application\Entity\News implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setTime($time)
+    public function setTime()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTime', array($time));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTime', array());
 
-        return parent::setTime($time);
+        return parent::setTime();
     }
 
     /**

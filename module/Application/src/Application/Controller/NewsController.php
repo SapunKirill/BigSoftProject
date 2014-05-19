@@ -71,13 +71,11 @@ class NewsController extends AbstractActionController
                 $resultNews = $this->getEntityManager()->getRepository('Application\Entity\News')->findBy($formPostNews);
                 
                 if(empty($resultNews)){
-                    $expdate = new \DateTime('now');
-                    $expdate->format('Y-m-d');
                     $news = new News();
                     $news->setName($this->params()->fromPost('newsName'));
                     $news->setShortText($this->params()->fromPost('newsShortText'));
                     $news->setFullText($this->params()->fromPost('newsFullText'));
-                    $news->setTime($expdate);
+                    $news->setTime();
                     $this->getEntityManager()->persist($news);
                     $this->getEntityManager()->flush();
                     
