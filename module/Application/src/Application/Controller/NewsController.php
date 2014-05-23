@@ -48,6 +48,29 @@ class NewsController extends AbstractActionController
     }
 
         public function newsDetailAction(){
+            
+               if(!empty($this->params()->fromPost())){
+                   
+               $comment = $this->getEntityManager()->getRepository('Application\Entity\Comments')->findById($this->params()->fromPost('id'));
+               foreach ($comment as $value){
+                   if($this->params()->fromPost('like') == -1){
+                       $count = $value->getDislike();
+                       $count++;
+                       $value->setDislike($count);
+                       $this->getEntityManager()->flush();
+                   }
+                   if($this->params()->fromPost('like') == 1){
+                       $count = $value->getLike();
+                       $count++;
+                       $value->setLike($count);
+                       $this->getEntityManager()->flush();
+                                       
+                   }
+               }
+            }
+        
+
+            
         $expdate = new \DateTime($this->params()->fromRoute('Y').'-'.$this->params()->fromRoute('m').'-'.$this->params()->fromRoute('d'));
                 
         return new ViewModel(array(
@@ -55,7 +78,9 @@ class NewsController extends AbstractActionController
             'news' => $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('id' => $this->params()->fromRoute('id'),'time'=> $expdate)),
             'commentsToNews' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findBy(array('news_id' => $this->params()->fromRoute('id'))),
             'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll(),
-        ));        
+        )); 
+        
+
         
     }
         public function newsAddAction(){
@@ -87,4 +112,5 @@ class NewsController extends AbstractActionController
             return new ViewModel();
             
         }
+        
 }
