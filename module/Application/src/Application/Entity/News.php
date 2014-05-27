@@ -38,9 +38,9 @@ class News {
 
     /** @ORM\Column(name="`rating`", type="integer", nullable=true) */
     protected $rating;
-
-
-
+        
+    /** @ORM\Column(name="`comments`", type="integer", nullable=true) */
+    protected $comments;
 
 
     /**
@@ -186,11 +186,21 @@ class News {
     {
         return $this->time;
     }
-
-
-
-    // getters/setters
-
+    
+     /**
+     * @param mixed $time
+     */
+    public function setComments($comments){
+        $this->comments = $comments;
+    }
+    
+        /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
 
 }

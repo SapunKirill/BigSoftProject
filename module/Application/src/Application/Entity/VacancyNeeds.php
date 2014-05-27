@@ -10,6 +10,7 @@ class VacancyNeeds {
     protected $vacancy_id;
 
     /** @ORM\Column(type="integer", name="needs_id") */
+    
     protected $needs_id;
 
     /**

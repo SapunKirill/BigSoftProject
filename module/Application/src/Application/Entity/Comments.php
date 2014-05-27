@@ -116,9 +116,9 @@ class Comments {
     /**
      * @param mixed $time
      */
-    public function setTime($time)
+    public function setTime()
     {
-        $this->time = $time;
+        $this->time = new \DateTime('now');
     }
 
     /**

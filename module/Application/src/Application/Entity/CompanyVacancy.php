@@ -10,6 +10,7 @@ class CompanyVacancy {
     protected $company_id;
 
     /** @ORM\Column(type="integer", name="vacancy_id") */
+    
     protected $vacancy_id;
 
     /**
@@ -22,7 +23,7 @@ class CompanyVacancy {
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Vacancy")
-     * @ORM\JoinColumn(name="vacancy_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="vacancy_id", referencedColumnName="id")     
      */
     protected $vacancy;
 
