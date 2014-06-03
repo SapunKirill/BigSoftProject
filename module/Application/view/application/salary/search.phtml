@@ -1,4 +1,69 @@
 <div class="container">
+        <div class="row">
+
+        <form id="filter" action="/salary/search" class="navbar-form" method="get">
+            
+            <div class="form-group">
+                <select name="technology" select class="form-control">                    
+                        <option value="0">Выберите технологию:</option>                    
+                        <?php foreach ($technology as $value): ?>
+                            <?php if(!empty($queryFilter['technology']) && $queryFilter['technology'] ==  $value->getId()): ?>
+                                <option value="<?= $value->getId() ?>" selected><?= $value->getName() ?></option>
+                            <?php else:?>                        
+                                <option value="<?= $value->getId() ?>"><?= $value->getName() ?></option>                                               
+                            <?php endif;?>
+                        <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select name="position" select class="form-control">
+                    <option value="0">Выберите должность:</option>
+                    <?php foreach ($position as $value): ?>
+                            <?php if(!empty($queryFilter['position']) && $queryFilter['position'] ==  $value->getId()): ?>
+                                <option value="<?= $value->getId() ?>" selected><?= $value->getName() ?></option>
+                            <?php else:?>                        
+                                <option value="<?= $value->getId() ?>"><?= $value->getName() ?></option>                                               
+                            <?php endif;?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select name="city" select class="form-control">
+                    <option value="0">Выберите город:</option>
+                    <?php foreach ($city as $value): ?>
+                            <?php if(!empty($queryFilter['city']) && $queryFilter['city'] ==  $value->getId()): ?>
+                                <option value="<?= $value->getId() ?>" selected><?= $value->getName() ?></option>
+                            <?php else:?>                        
+                                <option value="<?= $value->getId() ?>"><?= $value->getName() ?></option>                                               
+                            <?php endif;?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <?php if(!empty($queryFilter['experience'])): ?>
+                <input type="text" class="form-control" name="experience" size="10" maxlength="2" value="<?= $queryFilter['experience']?>"  />
+                <?php else :?>
+                <input type="text" class="form-control" name="experience" size="10" maxlength="2" placeholder="Стаж, лет"  />
+                <?php endif;?>
+            </div>
+            <div class="form-group">
+                <?php if(!empty($queryFilter['price'])): ?>
+                <input type="text" class="form-control" name="price" size="10" maxlength="4" value="<?= $queryFilter['price']?>"  />
+                <?php else :?>
+                <input type="text" class="form-control" name="price" size="10" maxlength="4" placeholder="Сумма, $"  />
+                <?php endif;?>
+
+            </div>
+            
+            <input type="submit" class="btn btn-success" id="LogIn" value="GO!"> 
+            
+        </form>
+
+    </div>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="listVacancy">

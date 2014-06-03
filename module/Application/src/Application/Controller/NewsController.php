@@ -104,6 +104,9 @@ class NewsController extends AbstractActionController
                    
                }
               }
+              
+     
+        
         return new ViewModel(array(
             
             'news' => $news,

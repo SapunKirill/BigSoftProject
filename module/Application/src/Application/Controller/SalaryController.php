@@ -58,26 +58,25 @@ class SalaryController extends AbstractActionController {
     }
 
     public function searchAction() {
-        $position_id = $this->params()->fromQuery("position");
-        $technology_id = $this->params()->fromQuery("technology");
-        $city_id = $this->params()->fromQuery("city");
-        $experience = $this->params()->fromQuery("experience");
+        
         $price = 0;
         $needs = array();
         $experienceMin = 0;
-        $validator = new Zend\Validator\Digits();
+        $validator = new Zend\Validator\Digits(); 
+        
+       if ($validator->isValid( $this->params()->fromQuery("technology")) && strlen($this->params()->fromQuery("technology")) <= 4 && $this->params()->fromQuery("technology") != 0) {
+            $needs['technology_id'] = $this->params()->fromQuery("technology");
+        }
 
-        if ($validator->isValid($position_id) && strlen($position_id) <= 4 && $position_id != 0) {
-            $needs['position_id'] = $position_id;
+        if ($validator->isValid($this->params()->fromQuery("position")) && strlen($this->params()->fromQuery("position")) <= 4 && $this->params()->fromQuery("position") != 0) {
+            $needs['position_id'] = $this->params()->fromQuery("position");
         }
-        if ($validator->isValid($technology_id) && strlen($technology_id) <= 4 && $technology_id != 0) {
-            $needs['technology_id'] = $technology_id;
+
+        if ($validator->isValid($this->params()->fromQuery("city")) && strlen($this->params()->fromQuery("city")) <= 3 && $this->params()->fromQuery("city") != 0) {
+            $needs['city_id'] = $this->params()->fromQuery("city");
         }
-        if ($validator->isValid($city_id) && strlen($city_id) <= 3 && $city_id != 0) {
-            $needs['city_id'] = $city_id;
-        }
-        if ($validator->isValid($experience) && strlen($experience) <= 2 && $experience != 0) {
-            $experienceMin = $experience;
+        if ($validator->isValid($this->params()->fromQuery("experience")) && strlen($this->params()->fromQuery("experience")) <= 2 && $this->params()->fromQuery("experience") != 0) {
+            $experienceMin = $this->params()->fromQuery("experience");
         }
         if ($validator->isValid($this->params()->fromQuery("price")) && strlen($this->params()->fromQuery("price")) <= 6) {
             $price = $this->params()->fromQuery("price");
@@ -116,11 +115,22 @@ class SalaryController extends AbstractActionController {
 
         if (empty($vacancy_id)) {
             return new ViewModel(array(
-                'vacancy' => NULL));
+                'vacancy' => NULL,
+                'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
+                'position' => $this->getEntityManager()->getRepository('Application\Entity\Position')->findAll(),
+                'city' => $this->getEntityManager()->getRepository('Application\Entity\City')->findAll(),
+                'queryFilter'=> $this->params()->fromQuery(),                
+                ));
+            
+            
         } else {
             return new ViewModel(array(
+                'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
+                'position' => $this->getEntityManager()->getRepository('Application\Entity\Position')->findAll(),
+                'city' => $this->getEntityManager()->getRepository('Application\Entity\City')->findAll(),
                 'vacancy' => $this->getEntityManager()->getRepository('Application\Entity\Vacancy')->findById($vacancy_id),
-                'companyVacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findBy(array('vacancy' => $vacancy_id))
+                'companyVacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findBy(array('vacancy' => $vacancy_id)),
+                'queryFilter'=> $this->params()->fromQuery(),
             ));
         }
     }
