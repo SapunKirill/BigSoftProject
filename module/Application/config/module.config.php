@@ -131,17 +131,17 @@ return array(
                     ),
                 ),
             ),
-            'company' => array(
+            'companyDetail' => array(
                 'type'    => 'Segment',
                 'options' => array(
                     'route'    => '/company/:id',
                     'constraints' => array(
-                        'action'   => '[0-9]+',
+                        'id'   => '[0-9]+',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Company',
-                        'action'        => 'listcompany'
+                        'action'        => 'companyDetail'
                     ),
                 ),
             ),

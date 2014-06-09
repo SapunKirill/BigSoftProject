@@ -64,10 +64,10 @@ class Companies extends \Application\Entity\Companies implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'legal_name', 'worker_count', 'address', 'phone', 'service', 'logo');
+            return array('__isInitialized__', 'id', 'name', 'legal_name', 'worker_count', 'address', 'phone', 'service', 'logo', 'comments');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'legal_name', 'worker_count', 'address', 'phone', 'service', 'logo');
+        return array('__isInitialized__', 'id', 'name', 'legal_name', 'worker_count', 'address', 'phone', 'service', 'logo', 'comments');
     }
 
     /**
@@ -290,6 +290,28 @@ class Companies extends \Application\Entity\Companies implements \Doctrine\ORM\P
     /**
      * {@inheritDoc}
      */
+    public function setLegalName($name)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLegalName', array($name));
+
+        return parent::setLegalName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLegalName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLegalName', array());
+
+        return parent::getLegalName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setService($service)
     {
 
@@ -329,6 +351,28 @@ class Companies extends \Application\Entity\Companies implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWorkerCount', array());
 
         return parent::getWorkerCount();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setComments($comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setComments', array($comments));
+
+        return parent::setComments($comments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComments', array());
+
+        return parent::getComments();
     }
 
 }

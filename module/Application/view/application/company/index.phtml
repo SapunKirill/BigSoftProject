@@ -1,29 +1,38 @@
-<?php
-
-$title = 'Компании';
-$title->headTitle($title);
-?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?php echo $this->url('company', array('action'=>'addcompany')); ?>">Добавьте новую компанию</a>
+    <a href="<?php echo $this->url('company', array('action' => 'addcompany')); ?>">Добавьте новую компанию</a>
 </p>
 
-<div>
-    <table class="table">
-        <tr>
-            <tn>Название</tn>
-            <tn>Кол-во сотрудников</tn>
-            <tn>Вакансии</tn>
-            <tn>Отзывы</tn>
-            <tn>&nbsp;</tn>
-        </tr>
-        <?php foreach ($company as $value) : ?>
-            <tr>
-                <td><?php echo $this->escapeHtml($value->getName());?></td>
-                <td><?php echo $this->escapeHtml($value->getWorkerCount());?></td>
-                <td><?php echo $this->escapeHtml($value->getId());?></td>
-                <td><?php echo $this->escapeHtml($value->getText());?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+<div class="container">
+    <div class="row">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Кол-во сотрудников</th>
+                    <th>Вакансии</th>
+                    <th>Отзывы</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php  foreach ($company as $value) : ?>
+                    <tr>
+                        <td><a href="/company/<?= $this->escapeHtml($value->getId())?>"><?= $this->escapeHtml($value->getName())?></td>
+                        <td><?= $this->escapeHtml($value->getWorkerCount()) ?></td>
+                        <td><?php 
+                             $c = array();
+                            foreach ($vacancy as $vacancyResult){                            
+                            if($value->getId() == $vacancyResult->getCompany()->getId()){
+                                $c[] = $vacancyResult->getCompanyId();                                
+                            }    
+                        }
+                        echo count($c);                        
+                            ?></td>
+                        <td><?= $this->escapeHtml($value->getComments()) ?></td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>    
+        </table>
+    </div>
 </div>
