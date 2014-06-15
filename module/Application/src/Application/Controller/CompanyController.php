@@ -39,8 +39,7 @@ class CompanyController extends AbstractActionController
         return new ViewModel(array(
             'company' => $this->getEntityManager()->getRepository('Application\Entity\Companies')->findAll(),
             'companycomments' => $this->getEntityManager()->getRepository('Application\Entity\CompanyComments')->findAll(),
-            'companyVacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findAll(),
-            
+            'vacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findAll(),            
             'comments' => $this->getEntityManager()->getRepository('Application\Entity\Comments')->findAll(),
         ));
     }
@@ -99,6 +98,7 @@ class CompanyController extends AbstractActionController
                    
                }
                }
+
         
         
         return new ViewModel(array(
