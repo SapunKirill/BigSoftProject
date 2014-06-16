@@ -51,36 +51,6 @@
             <?php if (empty($company)): ?>
                 <div class="alert alert-info">Такой компании не существует</div>
             <?php else : ?>
-                <?php
-                function comToCom($arrayCommentsToComments, $valuePrimary) {
-                    foreach ($arrayCommentsToComments as $value) {
-                          if ($value->getParent()->getId() == $valuePrimary->getChild()->getId()) : ?>                            
-                            <div  class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-md-3">   
-                                            <?= $value->getChild()->getTime()->format('Y-m-d H:m') ?>
-                                        </div>
-                                        <div class="col-md-7"></div>
-                                        <div class="col-md-2">   
-                                    <span class="likeCount"><?= $value->getChild()->getLike() ?></span>
-                                    <button data-id="<?= $value->getChild()->getId() ?>" data-like="1" class="like btn btn-xs btn-success">+</button>
-                                    <button data-id="<?= $value->getChild()->getId() ?>" data-like="-1" class="like btn btn-xs btn-danger">-</button>
-                                    <span class="dislikeCount"> <?= $value->getChild()->getDisLike() ?></span>
-                                    </div>
-                                        </div>
-                                </div>
-                                <div class="panel-body">
-                            <div class="well well-sm">
-                            <?= $value->getChild()->getText() ?>
-                            </div>    
-                                   <button onclick="comentForm('<?=$value->getChild()->getId()?>')" class="btn btn-link">Ответить</button>
-                                   <div id="<?=$value->getChild()->getId()?>" class="form"></div>
-                            <?= comToCom($arrayCommentsToComments, $value) ?>
-                                </div>
-                            </div>                          
-                <?php endif;}}?>                     
-                    
 
                   <?php foreach ($company as $companyResult) : ?>
                     <div class="blog-post">
@@ -90,71 +60,9 @@
                  Обсуждение <span class="badge"><?= $companyResult->getComments() ?></span>
                   <?php endforeach; ?>
                 
-                <div id="commentsList" >
-                     <button onclick="comentForm('0')" class="btn btn-link">Оставить комментарий</button>
-                    <div id="addForm" class="well-lg" style="display:none" >
-                        <form id="addComm" name="newComment" method="POST" action="#" >
-                          <input type="text" class="form-control" name="autId" placeholder="Author id"/>                                      
-                          <textarea class="form-control" rows="3" placeholder="Ведите текст" name="textNewComment"></textarea>
-                          <input type="hidden" name="parent_id" id="parent_id" value="0"/>
-                          <input id="addComment" type="submit" class="btn btn-success"/> 
-                        </form>
-                      </div>   
-                  <?php foreach ($commentsParent as $commentsParentResult) : ?>
-                        <div id="parent" class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <?= $commentsParentResult->getComments()->getTime()->format('Y-m-d H-m') ?>
-                                    </div>
-                                    <div class="col-md-7"></div>
-                                    <div class="col-md-2">
-                                        <span class="likeCount"><?= $commentsParentResult->getComments()->getLike() ?></span>
-                                        <button data-like="1" data-id="<?= $commentsParentResult->getComments()->getId() ?>" class="like btn btn-xs btn-success">+</button>
-                                        <button data-id="<?= $commentsParentResult->getComments()->getId() ?>" data-like="-1" class="like btn btn-xs btn-danger">-</button>
-                                        <span class="dislikeCount"> <?= $commentsParentResult->getComments()->getDisLike() ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="well well-sm">
-                                <?= $commentsParentResult->getComments()->getText() ?>
-                                   </div> 
-                                <button onclick="comentForm('<?= $commentsParentResult->getComments()->getId() ?>')" class="btn btn-link">Ответить</button>
-                                <div id="<?=$commentsParentResult->getComments()->getId()?>" class="form"></div>
-                                        <?php foreach ($commentsToComments as $value) : ?>
-                                         <?php if ($value->getParent()->getId() === $commentsParentResult->getComments()->getId()) : ?>                                        
-                                        <div id="child" class="panel panel-default">
-                                            <div class="panel-heading">
-                                             <div class="row">
-                                              <div class="col-md-3">
-                                               <?= $value->getChild()->getTime()->format('Y-m-d H-m') ?>
-                                                  </div>
-                                                 <div class="col-md-7"></div>
-                                                <div class="col-md-2">
-                                                <span class="likeCount"><?= $value->getChild()->getLike() ?> </span>
-                                                <button data-id="<?= $value->getChild()->getId() ?>" data-like="1" class="like btn btn-xs btn-success">+</button>
-                                                <button data-id="<?= $value->getChild()->getId() ?>" data-like="-1" class="like btn btn-xs btn-danger">-</button>
-                                                <span class="dislikeCount"><?= $value->getChild()->getDisLike() ?></span>                                            
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            <div class="panel-body">
-                                                <div class="well well-sm">
-                                                <?= $value->getChild()->getText() ?>
-                                                </div>
-                                                <button onclick="comentForm('<?= $value->getChild()->getId() ?>')" class="btn btn-link">Ответить</button>
-                                                <div id="<?=$value->getChild()->getId()?>" class="form"></div>
-                                        <?= comToCom($commentsToComments, $value) ?>
-                                            </div>
-                                        </div>
-                            <?php endif; ?>
-                    <?php endforeach; ?>
-                            </div>
-                        </div>
-                <?php endforeach; ?>
-                </div>
+                <?php echo $this->comments;?>
             <?php endif; ?>
+                 
         </div>
     </div>
 </div>

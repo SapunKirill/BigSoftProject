@@ -97,18 +97,19 @@ class CompanyController extends AbstractActionController
                    }
                    
                }
-               }
-
-        
-        
-        return new ViewModel(array(
+               }               
+               
+            $view = new ViewModel(array(
             'company' => $this->getEntityManager()->getRepository('Application\Entity\Companies')->findById($this->params()->fromRoute('id')),            
             'vacancy' => $this->getEntityManager()->getRepository('Application\Entity\CompanyVacancy')->findBy(array('company_id' => $this->params()->fromRoute('id'))),
+        ));  
+        
+        $commentsView = new ViewModel(array(
             'commentsParent' => $this->getEntityManager()->getRepository('Application\Entity\CompanyComments')->findBy(array('company_id' => $this->params()->fromRoute('id'))),
-            'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll(),
-            
-            
-            
-        ));
+            'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll()));
+        $commentsView->setTemplate('templates/commentsList');
+        $view->addChild($commentsView, 'comments');       
+        
+        return $view;
     }
 }

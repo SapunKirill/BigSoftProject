@@ -103,16 +103,18 @@ class NewsController extends AbstractActionController
                    }
                    
                }
-              }
-              
-     
-        
-        return new ViewModel(array(
-            
+              } 
+        $view = new ViewModel(array(            
             'news' => $news,
-            'commentsToNews' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findBy(array('news_id' => $this->params()->fromRoute('id'))),
-            'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll(),
-        )); 
+        ));
+        
+        $commentsView = new ViewModel(array(
+            'commentsParent' => $this->getEntityManager()->getRepository('Application\Entity\NewsComments')->findBy(array('news_id' => $this->params()->fromRoute('id'))),
+            'commentsToComments' => $this->getEntityManager()->getRepository('Application\Entity\CommentsToComments')->findAll()));
+        $commentsView->setTemplate('templates/commentsList');
+        $view->addChild($commentsView, 'comments');     
+        
+        return $view;
     }
         public function newsAddAction(){
             
