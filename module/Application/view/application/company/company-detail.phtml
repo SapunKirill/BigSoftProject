@@ -1,51 +1,5 @@
 
-<script type="text/javascript">
-    $(function() {
-        $('.like').click(function() {
-            id = $(this).attr("data-id");
-            like = $(this).attr("data-like");
-            likeDislike(id, like);
-        });
-    });
-    function likeDislike(id, like) {
-        var data = 'id=' + id + '&like=' + like;
-        $.ajax({
-            type: 'POST',
-            url: '#',            
-            data: data,
-            success: function(res){
-                $('body').html(res);
-                    }
-            
-        });
-    }  
-    function comentForm(id){               
-              $('#parent_id').attr('value',id);
-               $('#' + id + '').append($('.well-lg'));
-               $('#addForm').animate({height:"show"},1000); 
-            }
-   $(function(){
-        $('#addComment').click(function(e){
-            e.preventDefault();
-            form = $('#addComm').serialize();
-            alert(form);
-            addComm(form);
-        });        
-    });
-    function addComm(form){
-        $.ajax({
-        type: 'POST',
-        url: '#',
-        data:form,
-                    success: function(res){
-                $('body').html(res);
-                    }
-        });
 
-    }
-
-</script>
-<div class="container">
     <div class="row">
         <div id="companyBlock" class="col-md-12">        
             <?php if (empty($company)): ?>
@@ -65,5 +19,5 @@
                  
         </div>
     </div>
-</div>
+
 

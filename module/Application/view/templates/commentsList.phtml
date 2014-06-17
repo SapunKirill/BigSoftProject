@@ -48,12 +48,13 @@
 
 <?php
 
+
 function comToCom($arrayCommentsToComments, $valuePrimary) {
     foreach ($arrayCommentsToComments as $value) {
         if ($value->getParent()->getId() == $valuePrimary->getChild()->getId()) :
             ?>                            
-            <div  class="panel panel-default">
-                <div class="panel-heading">
+<div id="child" class="commentBlock" >
+                <div class="commHeader">
                     <div class="row">
                         <div class="col-md-3">   
             <?= $value->getChild()->getTime()->format('Y-m-d H:m') ?>
@@ -67,8 +68,8 @@ function comToCom($arrayCommentsToComments, $valuePrimary) {
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="well well-sm">
+                <div >
+                    <div class="text">
             <?= $value->getChild()->getText() ?>
                     </div>    
                     <button onclick="comentForm('<?= $value->getChild()->getId() ?>')" class="btn btn-link">Ответить</button>
@@ -90,8 +91,8 @@ function comToCom($arrayCommentsToComments, $valuePrimary) {
         </form>
     </div>   
                     <?php foreach ($commentsParent as $commentsParentResult) : ?>
-        <div id="parent" class="panel panel-default">
-            <div class="panel-heading">
+        <div id="parent" class="commentBlock" >
+            <div class="commHeader" >
                 <div class="row">
                     <div class="col-md-3">
     <?= $commentsParentResult->getComments()->getTime()->format('Y-m-d H-m') ?>
@@ -105,16 +106,16 @@ function comToCom($arrayCommentsToComments, $valuePrimary) {
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="well well-sm">
+            <div>
+                <div class="text">
                 <?= $commentsParentResult->getComments()->getText() ?>
                 </div> 
                 <button onclick="comentForm('<?= $commentsParentResult->getComments()->getId() ?>')" class="btn btn-link">Ответить</button>
                 <div id="<?= $commentsParentResult->getComments()->getId() ?>" class="form"></div>
     <?php foreach ($commentsToComments as $value) : ?>
                                     <?php if ($value->getParent()->getId() === $commentsParentResult->getComments()->getId()) : ?>                                        
-                        <div id="child" class="panel panel-default">
-                            <div class="panel-heading">
+                <div id="child"  class="commentBlock" >
+                            <div class="commHeader">
                                 <div class="row">
                                     <div class="col-md-3">
             <?= $value->getChild()->getTime()->format('Y-m-d H-m') ?>
@@ -128,8 +129,8 @@ function comToCom($arrayCommentsToComments, $valuePrimary) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-body">
-                                <div class="well well-sm">
+                            <div >
+                                <div class="text">
                                 <?= $value->getChild()->getText() ?>
                                 </div>
                                 <button onclick="comentForm('<?= $value->getChild()->getId() ?>')" class="btn btn-link">Ответить</button>
