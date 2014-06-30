@@ -1,5 +1,37 @@
-<form action="/news" method="post">
-    First name: <input type="text" name="fam"><br>
-    Last name: <input type="text" name="name">
-    <input type="submit">
-</form>
+<div class="row">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Новости из мира.... <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <?php foreach ($technology as $techValue):?>
+            <li><a href="/news/tech/<?=$techValue->getId()?>"><?=$techValue->getName()?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    
+</div>    
+
+<div class="row">        
+        <div class="listNews">
+            <?php
+            if (empty($news)) :?>
+                <div class="alert alert-info">Нет результатов</div>
+            <?php else :?>
+
+               <?php foreach ($news as $newsResult) :?>
+                    <div id="newsBlock" class="col-md-12">
+                    <a href="/news/<?= $newsResult->getTime()->format('Y') ?>/<?= $newsResult->getTime()->format('m') ?>/<?= $newsResult->getTime()->format('d') ?>/<?= $newsResult->getId() ?>">
+                    <div class="thumbnail">
+                    <img style="width: 300px; height: 200px; float: left" data-src="<?= $newsResult->getImg()?>"/>
+                    <h3><?= $newsResult->getName() ?></h3>
+                    <div class="caption"><?= $newsResult->getShortText() ?></div>
+                    </a>
+                    <span class="badge"><?= $newsResult->getComments() ?></span> Обсуждение 
+                    </div>
+                    </div>
+                <?php endforeach;?>            
+            <?php endif;?>
+        </div>
+        <a href="/news/add"><button class="btn btn-default">Добавить новость</button></a>
+    </div>

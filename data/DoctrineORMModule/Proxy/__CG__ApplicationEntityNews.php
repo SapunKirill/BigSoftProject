@@ -64,10 +64,10 @@ class News extends \Application\Entity\News implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating');
+            return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating');
+        return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments');
     }
 
     /**
@@ -373,6 +373,28 @@ class News extends \Application\Entity\News implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTime', array());
 
         return parent::getTime();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setComments($comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setComments', array($comments));
+
+        return parent::setComments($comments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComments', array());
+
+        return parent::getComments();
     }
 
 }

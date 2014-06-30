@@ -3,6 +3,7 @@ namespace Application\Controller;
 
 use Application\Entity\News;
 use Application\Entity\NewsComments;
+use Application\Entity\NewsTechnology;
 use Application\Entity\Comments;
 use Application\Entity\CommentsToComments;
 use Zend;
@@ -143,6 +144,14 @@ class NewsController extends AbstractActionController
             }}
                 
             return new ViewModel();
+            
+        }
+        
+        public function newsTechnologyAction(){
+            return new ViewModel(array(
+                'news' => $this->getEntityManager()->getRepository('Application\Entity\NewsTechnology')->findBy(array('technology_id' => $this->params()->fromRoute('id')), array('news_id' => 'DESC')),
+            ));
+            
             
         }
         

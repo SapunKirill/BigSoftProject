@@ -1,0 +1,23 @@
+<div class="row">        
+        <div class="listNews">
+            <?php
+            if (empty($news)) :?>
+                <div class="alert alert-info">Нет результатов</div>
+            <?php else :?>
+
+               <?php foreach ($news as $newsResult) :?>
+                    <div id="newsBlock" class="col-md-12">
+                    <a href="/news/<?= $newsResult->getNews()->getTime()->format('Y') ?>/<?= $newsResult->getNews()->getTime()->format('m') ?>/<?= $newsResult->getNews()->getTime()->format('d') ?>/<?= $newsResult->getNews()->getId() ?>">
+                    <div class="thumbnail">
+                    <img style="width: 300px; height: 200px; float: left" data-src="<?= $newsResult->getNews()->getImg()?>"/>
+                    <h3><?= $newsResult->getNews()->getName() ?></h3>
+                    <div class="caption"><?= $newsResult->getNews()->getShortText() ?></div>
+                    </a>
+                    <span class="badge"><?= $newsResult->getNews()->getComments() ?></span> Обсуждение 
+                    </div>
+                    </div>
+                <?php endforeach;?>            
+            <?php endif;?>
+        </div>
+        <a href="/news/add"><button class="btn btn-default">Добавить новость</button></a>
+    </div>

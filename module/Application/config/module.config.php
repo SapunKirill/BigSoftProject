@@ -35,11 +35,22 @@ return array(
                     ),
                 ),
             ),
+            'newsTechnology' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/news/tech/:id',
+                    'constraints' =>array( '[0-9]+',),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'newsTechnology'
+                    ),
+                ),
+            ),
          'newsList' => array(
                 'type'    => 'Segment',
                 'options' => array(
                     'route'    => '/news',
-
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'News',
