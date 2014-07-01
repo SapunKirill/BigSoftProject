@@ -188,37 +188,37 @@
     <div class="row">
         <div class="col-md-9">
             <div class="listVacancy">
-                <?php
-                if (empty($vacancy)) {
-                    echo '<div class="alert alert-info">Нет результатов</div>';
-                } else {
-                    $today = new \DateTime('now');
-                    foreach ($vacancy as $vacancyResult) {
-                        if ($vacancyResult->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')) {
-                            echo '<div class="panel panel-default">';
-                            echo '<div class="panel-heading">                           
-                        <h3 class="panel-title"><a href="vacancy/detail/' . $vacancyResult->getId() . '">' . $vacancyResult->getName() . '</a></h3>
-                        </div>';
-                            echo '<div class="panel-body">' . substr($vacancyResult->getDescription(),0,500) . '</div>';
-                            echo '<div class="panel-footer">';
-                            echo '<div class="row">';
-                            echo '<div class="price col-md-2">' . $vacancyResult->getPrice() . ' $</div>';
-                            echo '<div class="company col-md-8">';
-                            foreach ($companyVacancy as $companyResult) {
+                <?php if (empty($vacancy)) :?>
+                    <div class="alert alert-info">Нет результатов</div>
+                <?php else: ?>
+                    <?php $today = new \DateTime('now')?>
+                    
+                    <?php foreach ($vacancy as $vacancyResult) :?>
+                       <?php if ($vacancyResult->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')) :?>
+                            <div class="panel panel-default">
+                            <div class="panel-heading">                           
+                        <h3 class="panel-title"><a href="/vacancy/detail/<?= $vacancyResult->getId() ?>"><?= $vacancyResult->getName() ?></a></h3>
+                        </div>
+                            <div class="panel-body"><?= substr($vacancyResult->getDescription(),0,500) ?></div>
+                            <div class="panel-footer">
+                            <div class="row">
+                            <div class="price col-md-2"><?= $vacancyResult->getPrice() ?></div>
+                            <div class="company col-md-8">
+                            <?php foreach ($companyVacancy as $companyResult) {
                                 switch ($vacancyResult->getId()) {
                                     case $companyResult->getVacancy()->getId():
                                         echo '<a   href="/company/' . $companyResult->getCompany()->getId() . '">' . $companyResult->getCompany()->getName() . '</a>';
                                 }
-                            }
-                            echo '</div>';
-                            echo '<div class="linkDetail col-md-2"><a href="/vacancy/detail/' . $vacancyResult->getId() . '"><button type="button" class="btn btn-info">Подробнее</button></a></div>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</div>';
-                        }
-                    }
-                };
-                ?>
+                            }?>
+                            </div>
+                            <div class="linkDetail col-md-2"><a href="/vacancy/detail/<?= $vacancyResult->getId() ?>"><button type="button" class="btn btn-info">Подробнее</button></a></div>
+                            </div>
+                            </div>
+                            </div>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                <?php endif;?>
+                
             </div>
         </div>
         <div class="col-md-3">

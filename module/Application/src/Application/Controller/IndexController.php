@@ -38,10 +38,14 @@ class IndexController extends AbstractActionController
         return $this->em;
     }
     public function indexAction()
-    {
+    {   
         
-        $news = $this->getEntityManager()->getRepository('Application\Entity\News')->findAll(array(),array('id'=>'DESC'));
+        if(!empty($this->params()->fromPost('country'))){
+          $news = $this->getEntityManager()->getRepository('Application\Entity\News')->findBy(array('country' => $this->params()->fromPost('country')),array('id'=>'DESC'));            
+        }else{
         
+          $news = $this->getEntityManager()->getRepository('Application\Entity\News')->findAll(array(),array('id'=>'DESC'));
+        }
 
        
         return new ViewModel(array(

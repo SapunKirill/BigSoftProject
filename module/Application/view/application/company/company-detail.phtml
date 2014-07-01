@@ -1,20 +1,68 @@
-
+<script>
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
 
     <div class="row">
         <div id="companyBlock" class="col-md-12">        
             <?php if (empty($company)): ?>
                 <div class="alert alert-info">Такой компании не существует</div>
             <?php else : ?>
-
+                <?php $commentCount = 0 ?>
                   <?php foreach ($company as $companyResult) : ?>
                     <div class="blog-post">
                         <h3 class="blog-post-title"><?= $companyResult->getName() ?></h3>
                         <div class="caption"><?= $companyResult->getLegalName() ?></div>
+                        
+                        <?php $commentCount = $companyResult->getComments()?>
                     </div>
-                 Обсуждение <span class="badge"><?= $companyResult->getComments() ?></span>
                   <?php endforeach; ?>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#comments" role="tab" data-toggle="tab"> Обсуждение <span class="badge"><?= $commentCount ?></span></a></li>
+                    <li><a href="#vacancy" role="tab" data-toggle="tab"> Вакансии <span class="badge">
+                        <?php 
+                        $vacancyCount = array();
+                        echo count($vacancyCount);
+                        ?>
+                            </span></a></li>
+                </ul>
+              <div class="tab-content">
+                    <div class="tab-pane active" id="comments"><?php echo $this->comments;?></div>
+                    <div class="tab-pane" id="vacancy">
+              <div class="listVacancy">
+                <?php if (empty($vacancy)) :?>
+                    <div class="alert alert-info">Нет результатов</div>
+                <?php else: ?>
+                    <?php $today = new \DateTime('now')?>
+                    
+                    <?php foreach ($vacancy as $vacancyResult) :?>
+                       <?php if ($vacancyResult->getVacancy()->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')) :?>
+                        <?php $vacancyCount[] = $vacancyResult->getVacancy()->getId() ?>
+                            <div class="panel panel-default">
+                            <div class="panel-heading">                           
+                        <h3 class="panel-title"><a href="/vacancy/detail/<?= $vacancyResult->getVacancy()->getId() ?>"><?= $vacancyResult->getVacancy()->getName() ?></a></h3>
+                        </div>
+                            <div class="panel-body"><?= substr($vacancyResult->getVacancy()->getDescription(),0,500) ?></div>
+                            <div class="panel-footer">
+                            <div class="row">
+                            <div class="price col-md-2"><?= $vacancyResult->getVacancy()->getPrice() ?></div>
+                            <div class="linkDetail col-md-2"><a href="/vacancy/detail/<?= $vacancyResult->getVacancy()->getId() ?>"><button type="button" class="btn btn-info">Подробнее</button></a></div>
+                            </div>
+                            </div>
+                            </div>
+                    <?php else : ?>
+                        <div class="alert alert-info">Активные вакансии отстутвуют</div>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                <?php endif;?>
                 
-                <?php echo $this->comments;?>
+            </div>
+                       
+                    </div>
+                </div>    
+                
             <?php endif; ?>
                  
         </div>

@@ -41,6 +41,9 @@ class News {
         
     /** @ORM\Column(name="`comments`", type="integer", nullable=true) */
     protected $comments;
+    
+    /** @ORM\Column(name="`country`", type="string", nullable=true) */
+    protected $country;
 
 
     /**
@@ -202,5 +205,20 @@ class News {
         return $this->comments;
     }
 
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 
 }
