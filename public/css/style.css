@@ -23,22 +23,72 @@ position: relative
 
 #main {
     background: #fcfcfc;
-    border: 1px solid #eee;
+    border: 1px solid #d8d8d8;
     padding: 20px 0 30px 0;
+    margin-bottom: 30px;
 }
 /** COmments **/
+
+ul#commentsList, #commentsList ul{
+    list-style: none
+}
+#commentsList .parent{margin-bottom: 10px}
+
+#commentsList li{
+background: #f6f6f6;
+border: 1px solid #ddd;
+-moz-border-radius: 3px;
+border-radius: 3px;
+padding: 14px;
+position: relative;
+}
+#commentsList > li:before{
+    content: url(/img/comment-arrow.png);
+left: -21px;
+position: absolute;
+}
+.parent .avatar{
+    position: absolute;
+    left: -100px
+}
+#commentsList .children{
+    list-style: none
+}
+
+.children{padding-left: 10px;}
+
+#commentsList .children > li{
+background: #ddd;
+border-color: #d3d3d3;
+}
+
+#commentsList .children > li ul > li{
+background: #f6f6f6;
+border: 1px solid #ddd;
+}
+
+#commentsList .children > li ul > li ul > li{
+background: #ddd;
+border-color: #d3d3d3;
+}
+
+#commentsList .children > li ul > li ul > li ul >li{
+background: #f6f6f6;
+border: 1px solid #ddd;
+}
+
+
+
+
 .commHeader{
           
 }
-#parent {        
-    border:1px solid #ddd;
-    background: #f6f6f6;
-    
-}
-#child {
-    margin-left: 10px;
-    border-left:1px solid #ddd;
-}
+
 .commentBlock{
     padding: 5px 
+}
+
+#footer{min-height: 300px;background: #575757}
+#footerWrap{
+    padding: 20px
 }

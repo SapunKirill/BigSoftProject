@@ -24,6 +24,9 @@ $('#myTab a').click(function (e) {
                     <li><a href="#vacancy" role="tab" data-toggle="tab"> Вакансии <span class="badge">
                         <?php 
                         $vacancyCount = array();
+                        foreach ($vacancy as $vacancyResult){
+                              $vacancyCount[] = $vacancyResult->getVacancy()->getId(); 
+                        }
                         echo count($vacancyCount);
                         ?>
                             </span></a></li>
@@ -39,7 +42,7 @@ $('#myTab a').click(function (e) {
                     
                     <?php foreach ($vacancy as $vacancyResult) :?>
                        <?php if ($vacancyResult->getVacancy()->getDateEnd()->format('Y-m-d H:i:s') >= $today->format('Y-m-d H:i:s')) :?>
-                        <?php $vacancyCount[] = $vacancyResult->getVacancy()->getId() ?>
+                       
                             <div class="panel panel-default">
                             <div class="panel-heading">                           
                         <h3 class="panel-title"><a href="/vacancy/detail/<?= $vacancyResult->getVacancy()->getId() ?>"><?= $vacancyResult->getVacancy()->getName() ?></a></h3>
@@ -53,7 +56,7 @@ $('#myTab a').click(function (e) {
                             </div>
                             </div>
                     <?php else : ?>
-                        <div class="alert alert-info">Активные вакансии отстутвуют</div>
+                        <div class="alert alert-info">Активные вакансии отсутствуют</div>
                         <?php endif;?>
                     <?php endforeach;?>
                 <?php endif;?>

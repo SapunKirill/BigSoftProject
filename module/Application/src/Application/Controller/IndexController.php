@@ -51,6 +51,10 @@ class IndexController extends AbstractActionController
         return new ViewModel(array(
             'news'=>$news,
             'technology' => $this->getEntityManager()->getRepository('Application\Entity\Technology')->findAll(),
+            
         ));
+        
+        
+        
     }
 }

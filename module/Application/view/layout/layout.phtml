@@ -11,9 +11,9 @@
             <div class="container">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/news">News</a></li>
-                        <li><a href="/salary">Vacancy</a></li>
-                        <li><a href="/company">Company</a></li>                                
+                        <li><a href="/news">Новости</a></li>
+                        <li><a href="/salary">Вакансии</a></li>
+                        <li><a href="/company">Компании</a></li>                                
                     </ul>
                 </div>
             </div>
@@ -21,11 +21,13 @@
         <div id="headerLogo" class="navbar">
             <div class="container">
                 <div class="navbar-header"> 
-                    <a href="/index" class="navbar-brand"><span class="glyphicon glyphicon-home"> Logo</span></a>
+                    <a href="/index" class="navbar-brand"><span class="glyphicon glyphicon-home"> SiteName</span></a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Поиск...">
+                        </div>
                     </form>                 
                 </div>    
             </div>
@@ -75,14 +77,31 @@
             
             <div id="main" class="container">
                 <div id="leftMainBlock" class="col-md-2">
+                    <?php echo $this->leftBlock; ?>
                 </div>
                 <div id="centerMainBlock" class="col-md-8">
                 <?php echo $this->content; ?>
                 </div>    
                 <div id="rightMainBlock" class="col-md-2">
+                     <?php echo $this->rightBlock; ?>
                 </div> 
             </div>
-        </div>   
+        </div>
+        <div id="footer">
+            <div id="footerWrap" class="container">
+                    <div id="footerNavbar" class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/news">Новости</a></li>
+                        <li><a href="/salary">Вакансии</a></li>
+                        <li><a href="/company">Компании</a></li>                                
+                    </ul>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>    
         <script src="/../js/bootstrap.min.js"></script>
     </body>
 </html>

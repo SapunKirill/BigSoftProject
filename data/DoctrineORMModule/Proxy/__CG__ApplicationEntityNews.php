@@ -64,10 +64,10 @@ class News extends \Application\Entity\News implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments');
+            return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments', 'country');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments');
+        return array('__isInitialized__', 'id', 'name', 'short_text', 'full_text', 'img', 'time', 'like', 'dislike', 'rating', 'comments', 'country');
     }
 
     /**
@@ -395,6 +395,28 @@ class News extends \Application\Entity\News implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComments', array());
 
         return parent::getComments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCountry($country)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCountry', array($country));
+
+        return parent::setCountry($country);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCountry()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCountry', array());
+
+        return parent::getCountry();
     }
 
 }

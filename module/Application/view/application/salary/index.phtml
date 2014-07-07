@@ -186,7 +186,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="listVacancy">
                 <?php if (empty($vacancy)) :?>
                     <div class="alert alert-info">Нет результатов</div>
@@ -221,39 +221,8 @@
                 
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel panel-heading">Свежедобавленные вакансии</div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <?php
-                        $id = array();
-                        foreach ($vacancy as $value) {
-                           $id[] = $value->getId();
-                            
-                        }
-                            $maxId = max($id);
-                            $countVacancy = 4;
-                            $minId = $maxId - $countVacancy;
-                        foreach ($vacancy as $value) {
-                            if ($value->getId() == $maxId || $value->getId() >= $minId) {
-                                echo '<a href="vacancy/detail/' . $value->getId() . '">';
-                                echo '<li class="list-group-item">';
-                                echo '<span class="badge">' . $value->getPrice() . '$ </span>';
-                                echo $value->getName();
-                                echo '</li>';
-                                echo '</a>';
-                            }
-                        }
-                        ?>
 
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <a href="/vacancy/add"><button class="btn btn-success">Добавить вакансию</button></a>
+        
 
     </div>
 

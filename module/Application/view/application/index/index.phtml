@@ -24,17 +24,25 @@
 
                <?php foreach ($news as $newsResult) :?>
                     <div id="newsBlock" class="col-md-12">
-                    <a href="/news/<?= $newsResult->getTime()->format('Y') ?>/<?= $newsResult->getTime()->format('m') ?>/<?= $newsResult->getTime()->format('d') ?>/<?= $newsResult->getId() ?>">
-                    <div class="thumbnail">
-                    <img style="width: 300px; height: 200px; float: left" data-src="<?= $newsResult->getImg()?>"/>
-                    <h3><?= $newsResult->getName() ?></h3>
-                    <div class="caption"><?= $newsResult->getShortText() ?></div>
+                        <span class="label label-info"><span class="glyphicon glyphicon glyphicon-envelope"> <?= $newsResult->getComments() ?></span></span>
+                     <span class="label label-default"><?= $newsResult->getTime()->format('Y-m-d') ?></span>   
+                                       <a href="/news/<?= $newsResult->getTime()->format('Y') ?>/<?= $newsResult->getTime()->format('m') ?>/<?= $newsResult->getTime()->format('d') ?>/<?= $newsResult->getId() ?>">
+                        <div class="thumbnail">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img style="width: 300px; height: 200px;" data-src="<?= $newsResult->getImg() ?>"/>
+                                </div> 
+                                <div class="col-md-7">
+                            <h3><?= $newsResult->getName() ?></h3>
+                            <div class="caption"><?= $newsResult->getShortText() ?></div>
+                            </div>
+                                </div>
                     </a>
-                    <span class="badge"><?= $newsResult->getComments() ?></span> Обсуждение 
+                    
                     </div>
                     </div>
                 <?php endforeach;?>            
             <?php endif;?>
         </div>
-        <a href="/news/add"><button class="btn btn-default">Добавить новость</button></a>
+       
     </div>
